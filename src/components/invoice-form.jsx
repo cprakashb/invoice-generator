@@ -1,8 +1,9 @@
 "use client"
 
-import { Tabs, Box } from "@radix-ui/themes"
+import { Tabs, Box } from "@radix-ui/themes";
+import { FromTab } from "./tabs/from-tab";
 
-export function InvoiceForm() {
+export function InvoiceForm({ invoiceData, setInvoiceData }) {
   return (
     <Tabs.Root defaultValue="from">
       <Tabs.List>
@@ -14,6 +15,7 @@ export function InvoiceForm() {
 
       <Box pt="3">
         <Tabs.Content value="from">
+           <FromTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
 
         <Tabs.Content value="billTo">

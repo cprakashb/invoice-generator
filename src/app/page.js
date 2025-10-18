@@ -1,3 +1,4 @@
+"use client";
 
 import { InvoiceGenerator } from "@/components/invoice-generator"
 

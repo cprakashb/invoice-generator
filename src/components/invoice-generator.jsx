@@ -2,8 +2,22 @@
 
 import { InvoiceForm } from "./invoice-form"
 import { FileText } from "lucide-react"
+import { useState } from "react";
 
 export function InvoiceGenerator() {
+
+  const [invoiceData, setInvoiceData] = useState({
+    from: {
+      name: "",
+      address: "",
+      city: "",
+      province: "",
+      country: "Canada",
+      phone: "",
+      email: "",
+    }
+  });
+
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-7xl">
@@ -18,7 +32,7 @@ export function InvoiceGenerator() {
       </header>
 
       <div>
-          <InvoiceForm />
+        <InvoiceForm invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
       </div>
     </div>
   )

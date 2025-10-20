@@ -138,7 +138,7 @@ export function InvoiceGenerator() {
               Download PDF
             </Button>
           </Flex>
-          <InvoicePreview invoiceData={invoiceData} />
+          {/* <InvoicePreview invoiceData={invoiceData} /> */}
         </Box>
       </div>
 

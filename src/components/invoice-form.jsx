@@ -15,10 +15,11 @@ export function InvoiceForm({ invoiceData, setInvoiceData }) {
 
       <Box pt="3">
         <Tabs.Content value="from">
-           <FromTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
+          <FromTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
 
         <Tabs.Content value="billTo">
+          <FromTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
 
         <Tabs.Content value="project">

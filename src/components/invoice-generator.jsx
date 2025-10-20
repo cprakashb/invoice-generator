@@ -15,7 +15,16 @@ export function InvoiceGenerator() {
       country: "Canada",
       phone: "",
       email: "",
-    }
+    },
+    to: {
+      name: "",
+      address: "",
+      city: "",
+      province: "",
+      country: "Canada",
+      phone: "",
+      email: "",
+    },
   });
 
 

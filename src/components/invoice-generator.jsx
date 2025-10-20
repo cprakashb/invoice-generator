@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { InvoiceForm } from "./invoice-form"
 import { Dialog, Button, Flex, Text, Box, Heading } from "@radix-ui/themes"
 import { FileText, Download, Save } from "lucide-react"
+import { InvoicePreview } from "./invoice-preview"
 
 const STORAGE_KEYS = {
   INVOICE_DATA: "invoice_generator_data",
@@ -138,7 +139,7 @@ export function InvoiceGenerator() {
               Download PDF
             </Button>
           </Flex>
-          {/* <InvoicePreview invoiceData={invoiceData} /> */}
+          <InvoicePreview invoiceData={invoiceData} />
         </Box>
       </div>
 

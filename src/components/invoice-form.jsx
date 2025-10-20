@@ -2,6 +2,9 @@
 
 import { Tabs, Box } from "@radix-ui/themes";
 import { FromTab } from "./tabs/from-tab";
+import { BillToTab } from "./tabs/bill-to-tab";
+import { ItemsTab } from "./tabs/items-tab";
+import { ProjectTab } from "./tabs/project-tab";
 
 export function InvoiceForm({ invoiceData, setInvoiceData }) {
   return (
@@ -19,13 +22,15 @@ export function InvoiceForm({ invoiceData, setInvoiceData }) {
         </Tabs.Content>
 
         <Tabs.Content value="billTo">
-          <FromTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
+          <BillToTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
 
         <Tabs.Content value="project">
+          <ProjectTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
 
         <Tabs.Content value="items">
+          <ItemsTab invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Tabs.Content>
       </Box>
 

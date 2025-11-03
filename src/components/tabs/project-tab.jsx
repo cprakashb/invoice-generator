@@ -192,8 +192,8 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
               placeholder="Street Address"
             />
           </Box>
-          <Box className="grid grid-cols-2 gap-4" mb="4">
-            <Box>
+          <Flex gap="4" mb="4" direction={{ initial: "column", sm: "row" }}>
+            <Box style={{ flex: 1 }}>
               <Text as="label" size="2" weight="medium" htmlFor="project-city" mb="2" display="block">
                 City
               </Text>
@@ -204,7 +204,7 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
                 placeholder="City"
               />
             </Box>
-            <Box>
+            <Box style={{ flex: 1 }}>
               <Text as="label" size="2" weight="medium" htmlFor="project-province" mb="2" display="block">
                 Province
               </Text>
@@ -212,7 +212,7 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
                 value={invoiceData.project?.province || ""}
                 onValueChange={(value) => updateProject("province", value)}
               >
-                <Select.Trigger placeholder="Select province" className="w-full" />
+                <Select.Trigger placeholder="Select province" style={{ width: "100%" }} />
                 <Select.Content>
                   {CANADIAN_PROVINCES.map((province) => (
                     <Select.Item key={province} value={province}>
@@ -222,7 +222,7 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
                 </Select.Content>
               </Select.Root>
             </Box>
-          </Box>
+          </Flex>
           <Box mb="4">
             <Text as="label" size="2" weight="medium" htmlFor="project-country" mb="2" display="block">
               Country
@@ -259,8 +259,8 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
           Invoice Details
         </Text>
         <Box>
-          <Box className="grid grid-cols-2 gap-4" mb="4">
-            <Box>
+          <Flex gap="4" mb="4" direction={{ initial: "column", sm: "row" }}>
+            <Box style={{ flex: 1 }}>
               <Text as="label" size="2" weight="medium" htmlFor="invoice-number" mb="2" display="block">
                 Invoice Number
               </Text>
@@ -270,7 +270,7 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
                 onChange={(e) => setInvoiceData({ ...invoiceData, invoiceNumber: e.target.value })}
               />
             </Box>
-            <Box>
+            <Box style={{ flex: 1 }}>
               <Text as="label" size="2" weight="medium" htmlFor="invoice-date" mb="2" display="block">
                 Invoice Date
               </Text>
@@ -281,7 +281,7 @@ export function ProjectTab({ invoiceData, setInvoiceData }) {
                 onChange={(e) => setInvoiceData({ ...invoiceData, invoiceDate: e.target.value })}
               />
             </Box>
-          </Box>
+          </Flex>
           <Box mb="4">
             <Text as="label" size="2" weight="medium" htmlFor="due-date" mb="2" display="block">
               Due Date (Optional)

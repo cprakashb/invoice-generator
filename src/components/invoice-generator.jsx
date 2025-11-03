@@ -283,10 +283,12 @@ export function InvoiceGenerator() {
               value = item[col.id] || "-"
             }
 
+            // For itemName column, wrap text if too long
             let textLines = [value]
             if (col.id === "itemName" && value !== "-") {
               const maxWidth = colWidths[i] - 4 // Subtract padding
               textLines = pdf.splitTextToSize(value, maxWidth)
+              // Calculate height needed for wrapped text
               const textHeight = textLines.length * 4
               if (textHeight > maxRowHeight) {
                 maxRowHeight = textHeight
@@ -360,7 +362,7 @@ export function InvoiceGenerator() {
 
 
   return (
-    <Box className="container mx-auto py-8 px-4 max-w-7xl">
+    <Box className="container mx-auto py-8 px-4 max-w-7xl overflow-x-hidden">
       <Box mb="8">
         <Flex align="center" gap="3" mb="2">
           <FileText className="h-8 w-8" style={{ color: "var(--accent-9)" }} />
@@ -371,7 +373,7 @@ export function InvoiceGenerator() {
         </Text>
       </Box>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Box>
           <Flex gap="2" mb="6">
             <Button onClick={handleSaveInvoice} variant="soft" style={{ flex: 1 }}>
@@ -383,7 +385,7 @@ export function InvoiceGenerator() {
           <InvoiceForm invoiceData={invoiceData} setInvoiceData={setInvoiceData} />
         </Box>
 
-        <Box>
+        <Box className="lg:sticky lg:top-8">
           <Flex align="center" justify="between" mb="6">
             <Heading size="6">Preview</Heading>
             <Button onClick={handleGeneratePDF}>
@@ -391,7 +393,9 @@ export function InvoiceGenerator() {
               Download PDF
             </Button>
           </Flex>
-          <InvoicePreview invoiceData={invoiceData} />
+          <Box className="overflow-x-auto">
+            <InvoicePreview invoiceData={invoiceData} />
+          </Box>
         </Box>
       </div>
 

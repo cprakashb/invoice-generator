@@ -29,19 +29,33 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Print styles for PDF generation */
+@media print {
+  @page {
+    margin: 0;
+    size: A4;
+  }
 
-table {
-  table-layout: fixed;
-  width: 100%;
-}
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
 
-td,
-th {
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
+  /* Ensure table text wrapping works in print/PDF */
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
 
-tr {
-  page-break-inside: avoid;
+  td,
+  th {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Prevent page breaks inside table rows */
+  tr {
+    page-break-inside: avoid;
+  }
 }

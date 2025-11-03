@@ -92,17 +92,30 @@ export function ItemsTab({ invoiceData, setInvoiceData }) {
           <Callout.Icon>
             <Info />
           </Callout.Icon>
-          <Flex justify="between" align="start" gap="4">
-            <Box>
+          <Flex
+            direction={{ initial: "column", sm: "row" }}
+            justify="between"
+            align={{ initial: "start", sm: "center" }}
+            gap="3"
+          >
+            <Box style={{ flex: 1, minWidth: 0 }}>
               <Text as="div" weight="medium" size="2" mb="2">
                 Default Line Item Template Active
               </Text>
-              <Text as="div" size="2" color="gray">
+              <Text
+                as="div"
+                size="2"
+                color="gray"
+                style={{
+                  wordBreak: "break-word",
+                  overflowWrap: "break-word",
+                }}
+              >
                 New items will use: {currentDefaults.itemName || "Empty name"} - $
                 {currentDefaults.price?.toFixed(2) || "0.00"}
               </Text>
             </Box>
-            <Button variant="ghost" onClick={clearDefaultLineItem}>
+            <Button variant="ghost" onClick={clearDefaultLineItem} style={{ flexShrink: 0 }}>
               Clear
             </Button>
           </Flex>

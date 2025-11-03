@@ -8,7 +8,7 @@ export function InvoicePreview({ invoiceData }) {
   const total = invoiceData.lineItems.reduce((sum, item) => sum + (item.price || 0), 0)
 
   return (
-    <Card id="invoice-preview">
+    <Card id="invoice-preview" style={{ minWidth: "600px" }}>
       <div className="space-y-8 p-5">
         <div className="flex justify-between items-start">
           <div>
@@ -68,7 +68,7 @@ export function InvoicePreview({ invoiceData }) {
         )}
 
         {/* From and To */}
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground uppercase mb-2">From</h3>
             <div className="space-y-1">
@@ -100,60 +100,57 @@ export function InvoicePreview({ invoiceData }) {
 
         {/* Line Items Table */}
         <div>
-          <div className="overflow-x-auto">
-            <table className="w-full table-fixed">
-              <thead>
-                <tr className="border-b-2 border-primary">
-                  {enabledColumns.map((column) => (
-                    <th
-                      key={column.id}
-                      className={`text-left py-3 px-2 text-sm font-semibold text-foreground ${
-                        column.id === "serialNumber"
-                          ? "w-16"
-                          : column.id === "itemName"
-                            ? "w-auto"
-                            : column.id === "date"
-                              ? "w-32"
-                              : column.id === "price"
-                                ? "w-24"
-                                : ""
-                      }`}
-                    >
-                      {column.label}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {invoiceData.lineItems.length === 0 ? (
-                  <tr>
-                    <td colSpan={enabledColumns.length} className="text-center py-8 text-muted-foreground">
-                      No items added yet
-                    </td>
-                  </tr>
-                ) : (
-                  invoiceData.lineItems.map((item, index) => (
-                    <tr key={item.id} className="border-b border-border">
-                      {enabledColumns.map((column) => (
-                        <td
-                          key={column.id}
-                          className={`py-3 px-2 text-sm text-foreground ${
-                            column.id === "itemName" ? "break-words" : ""
-                          }`}
-                        >
-                          {column.id === "serialNumber"
-                            ? index + 1
+          <table className="w-full table-fixed">
+            <thead>
+              <tr style={{ backgroundColor: "rgb(59, 66, 99)" }}>
+                {enabledColumns.map((column) => (
+                  <th
+                    key={column.id}
+                    className={`text-left py-3 px-2 text-sm font-semibold ${
+                      column.id === "serialNumber"
+                        ? "w-16"
+                        : column.id === "itemName"
+                          ? "w-auto"
+                          : column.id === "date"
+                            ? "w-32"
                             : column.id === "price"
-                              ? `$${(item.price || 0).toFixed(2)}`
-                              : item[column.id] || "-"}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                              ? "w-24"
+                              : ""
+                    }`}
+                    style={{ color: "#ffffff" }}
+                  >
+                    {column.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {invoiceData.lineItems.length === 0 ? (
+                <tr>
+                  <td colSpan={enabledColumns.length} className="text-center py-8 text-muted-foreground">
+                    No items added yet
+                  </td>
+                </tr>
+              ) : (
+                invoiceData.lineItems.map((item, index) => (
+                  <tr key={item.id} className="border-b border-border">
+                    {enabledColumns.map((column) => (
+                      <td
+                        key={column.id}
+                        className={`py-3 px-2 text-sm text-foreground ${column.id === "itemName" ? "break-words" : ""}`}
+                      >
+                        {column.id === "serialNumber"
+                          ? index + 1
+                          : column.id === "price"
+                            ? `$${(item.price || 0).toFixed(2)}`
+                            : item[column.id] || "-"}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
 
         {/* Total */}

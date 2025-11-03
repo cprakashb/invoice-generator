@@ -1,6 +1,7 @@
 "use client";
 
 import { Text, Select, Card, TextField, Flex } from "@radix-ui/themes"
+import { Box } from "@radix-ui/themes";
 
 const CANADIAN_PROVINCES = [
   "Alberta",
@@ -54,24 +55,26 @@ export function FromTab({ invoiceData, setInvoiceData }) {
             placeholder="123 Main Street"
           />
         </div>
-        <Flex wrap="wrap" gap="3">
-          <div className="flex-1 min-w-[150px]">
-            <Text as="label" size="2" weight="medium" htmlFor="from-city" className="block">
-              City *
+        <Flex gap="4" mb="4" direction={{ initial: "column", sm: "row" }}>
+          <Box style={{ flex: 1 }}>
+            <Text as="label" size="2" weight="medium" htmlFor="project-city" mb="2" display="block">
+              City
             </Text>
             <TextField.Root
               id="from-city"
               value={invoiceData.from.city}
               onChange={(e) => updateFrom("city", e.target.value)}
-              placeholder="Toronto"
+              placeholder="City"
             />
-          </div>
-          <div className="flex-1 min-w-[150px]">
-            <Text as="label" size="2" weight="medium" htmlFor="from-province" className="block">
-              Province *
+          </Box>
+          <Box style={{ flex: 1 }}>
+            <Text as="label" size="2" weight="medium" htmlFor="project-province" mb="2" display="block">
+              Province
             </Text>
-            <Select.Root className="w-100" value={invoiceData.from.province} onValueChange={(value) => updateFrom("province", value)}>
-              <Select.Trigger placeholder="Select province" className="w-full" />
+            <Select.Root
+              value={invoiceData.from.province} onValueChange={(value) => updateFrom("province", value)}
+            >
+              <Select.Trigger placeholder="Select province" style={{ width: "100%" }} />
               <Select.Content>
                 {CANADIAN_PROVINCES.map((province) => (
                   <Select.Item key={province} value={province}>
@@ -80,7 +83,7 @@ export function FromTab({ invoiceData, setInvoiceData }) {
                 ))}
               </Select.Content>
             </Select.Root>
-          </div>
+          </Box>
         </Flex>
         <div>
           <Text as="label" size="2" weight="medium" htmlFor="from-country" className="block">

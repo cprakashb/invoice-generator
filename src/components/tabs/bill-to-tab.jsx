@@ -1,6 +1,7 @@
 "use client"
 
-import { Text, Select, Card, TextField } from "@radix-ui/themes"
+import { Text, Select, Card, TextField, Flex } from "@radix-ui/themes"
+import { Box } from "@radix-ui/themes"
 
 const CANADIAN_PROVINCES = [
   "Alberta",
@@ -54,24 +55,24 @@ export function BillToTab({ invoiceData, setInvoiceData }) {
             placeholder="456 Client Avenue"
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <Text as="label" size="2" weight="medium" htmlFor="to-city" className="block">
+        <Flex gap="4" mb="4" direction={{ initial: "column", sm: "row" }}>
+          <Box style={{ flex: 1 }}>
+            <Text as="label" size="2" weight="medium" htmlFor="project-city" mb="2" display="block">
               City *
             </Text>
             <TextField.Root
               id="to-city"
               value={invoiceData.to.city}
               onChange={(e) => updateTo("city", e.target.value)}
-              placeholder="Vancouver"
+              placeholder="City"
             />
-          </div>
-          <div>
-            <Text as="label" size="2" weight="medium" htmlFor="to-province" className="block">
-              Province *
+          </Box>
+          <Box style={{ flex: 1 }}>
+            <Text as="label" size="2" weight="medium" htmlFor="project-province" mb="2" display="block">
+              Province
             </Text>
             <Select.Root value={invoiceData.to.province} onValueChange={(value) => updateTo("province", value)}>
-              <Select.Trigger placeholder="Select province" className="w-full" />
+              <Select.Trigger placeholder="Select province" style={{ width: "100%" }} />
               <Select.Content>
                 {CANADIAN_PROVINCES.map((province) => (
                   <Select.Item key={province} value={province}>
@@ -80,8 +81,8 @@ export function BillToTab({ invoiceData, setInvoiceData }) {
                 ))}
               </Select.Content>
             </Select.Root>
-          </div>
-        </div>
+          </Box>
+        </Flex>
         <div>
           <Text as="label" size="2" weight="medium" htmlFor="to-country" className="block">
             Country *

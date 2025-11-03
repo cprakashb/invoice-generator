@@ -101,11 +101,24 @@ export function InvoicePreview({ invoiceData }) {
         {/* Line Items Table */}
         <div>
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full table-fixed">
               <thead>
                 <tr className="border-b-2 border-primary">
                   {enabledColumns.map((column) => (
-                    <th key={column.id} className="text-left py-3 px-2 text-sm font-semibold text-foreground">
+                    <th
+                      key={column.id}
+                      className={`text-left py-3 px-2 text-sm font-semibold text-foreground ${
+                        column.id === "serialNumber"
+                          ? "w-16"
+                          : column.id === "itemName"
+                            ? "w-auto"
+                            : column.id === "date"
+                              ? "w-32"
+                              : column.id === "price"
+                                ? "w-24"
+                                : ""
+                      }`}
+                    >
                       {column.label}
                     </th>
                   ))}
@@ -122,7 +135,12 @@ export function InvoicePreview({ invoiceData }) {
                   invoiceData.lineItems.map((item, index) => (
                     <tr key={item.id} className="border-b border-border">
                       {enabledColumns.map((column) => (
-                        <td key={column.id} className="py-3 px-2 text-sm text-foreground">
+                        <td
+                          key={column.id}
+                          className={`py-3 px-2 text-sm text-foreground ${
+                            column.id === "itemName" ? "break-words" : ""
+                          }`}
+                        >
                           {column.id === "serialNumber"
                             ? index + 1
                             : column.id === "price"

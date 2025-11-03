@@ -106,7 +106,7 @@ export function InvoiceGenerator() {
     }
   }
 
-    const handleGeneratePDF = async () => {
+  const handleGeneratePDF = async () => {
     try {
       const jsPDF = (await import("jspdf")).default
 
@@ -240,7 +240,20 @@ export function InvoiceGenerator() {
 
       const enabledColumns = invoiceData.columns.filter((col) => col.enabled)
       const tableWidth = pageWidth - 2 * margin
-      const colWidths = enabledColumns.map(() => tableWidth / enabledColumns.length)
+      const colWidths = enabledColumns.map((col) => {
+        switch (col.id) {
+          case "serialNumber":
+            return tableWidth * 0.1 // 10% for serial number
+          case "itemName":
+            return tableWidth * 0.5 // 50% for item name (needs most space for wrapping)
+          case "date":
+            return tableWidth * 0.2 // 20% for date
+          case "price":
+            return tableWidth * 0.2 // 20% for price
+          default:
+            return tableWidth / enabledColumns.length // Fallback to equal distribution
+        }
+      })
 
       pdf.setFillColor(59, 66, 99)
       pdf.rect(margin, yPos - 5, tableWidth, 8, "F")
@@ -257,6 +270,9 @@ export function InvoiceGenerator() {
       } else {
         invoiceData.lineItems.forEach((item, index) => {
           xPos = margin
+          let maxRowHeight = 4
+          const rowTexts = []
+
           enabledColumns.forEach((col, i) => {
             let value = "-"
             if (col.id === "serialNumber") {
@@ -266,10 +282,38 @@ export function InvoiceGenerator() {
             } else {
               value = item[col.id] || "-"
             }
-            addText(value, xPos + 2, yPos, { fontSize: 9 })
+
+            let textLines = [value]
+            if (col.id === "itemName" && value !== "-") {
+              const maxWidth = colWidths[i] - 4 // Subtract padding
+              textLines = pdf.splitTextToSize(value, maxWidth)
+              const textHeight = textLines.length * 4
+              if (textHeight > maxRowHeight) {
+                maxRowHeight = textHeight
+              }
+            }
+
+            rowTexts.push({
+              lines: textLines,
+              x: xPos + 2,
+              colId: col.id,
+            })
             xPos += colWidths[i]
           })
-          yPos += 4
+
+          rowTexts.forEach((textData) => {
+            if (textData.lines.length === 1) {
+              // Single line text - render normally
+              addText(textData.lines[0], textData.x, yPos, { fontSize: 9 })
+            } else {
+              // Multi-line text (wrapped) - render each line
+              textData.lines.forEach((line, lineIndex) => {
+                addText(line, textData.x, yPos + lineIndex * 4, { fontSize: 9 })
+              })
+            }
+          })
+
+          yPos += maxRowHeight
           pdf.setDrawColor(228, 228, 231)
           pdf.setLineWidth(0.1)
           pdf.line(margin, yPos, pageWidth - margin, yPos)

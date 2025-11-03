@@ -144,7 +144,7 @@ export function InvoiceGenerator() {
 
       if (invoiceData.showCompanyInPDF && invoiceData.companyName) {
         addText(invoiceData.companyName, margin, yPos, { fontSize: 14, fontStyle: "bold", color: "#000000" })
-        yPos += 8
+        yPos += 5
       }
 
       if (invoiceData.showInvoiceNumber && invoiceData.invoiceNumber) {
@@ -157,6 +157,8 @@ export function InvoiceGenerator() {
         fontStyle: "bold",
         align: "right",
       })
+      yPos += 8;
+
       if (invoiceData.dueDate) {
         addText(`Due: ${invoiceData.dueDate}`, pageWidth - margin, margin + 5, {
           fontSize: 10,
